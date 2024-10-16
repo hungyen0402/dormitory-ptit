@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %} Details {% endblock %}
+
+{% block content %}
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <img src="{{room.image1.url}}" class="img-fluid" alt="" style="height: 500px" width="95%"><br><br>
+          <img src="{{room.image2.url}}" class="img-fluid" alt="" style="height: 500px" width="95%"><br><br>
+          <img src="{{room.image3.url}}" class="img-fluid" alt="" style="height: 500px" width="95%"><br><br>
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3">
+              <a href="">
+                <span class="badge purple mr-1">Block {{room.block.block_name}}</span>
+              </a>
+              <a href="">
+                <span class="badge blue mr-1">{{room.room_tag}}</span>
+              </a>
+              <a href="">
+                <span class="badge red mr-1">{{room.room_name}}</span>
+              </a>
+              <a href="">
+                {% if room.is_available %}
+                <span class="badge green mr-1">AVAILABLE</span>
+                {% else %}
+                <span class="badge red mr-1">UNAVAILABLE</span>
+                {% endif %}
+              </a>
+            </div>
+
+            <p class="lead">
+              <span class="mr-1">
+                <b>Room Price </b>
+              </span>
+              <span class="mr-1">₦{{room.charge}}</span>
+            </p>
+
+            <p class="lead font-weight-bold">Room Description</p>
+
+            <p>{{room.description}}</p>
+
+            <p class="lead font-weight-bold">Room Condition</p>
+
+            <p>{{room.condition}}</p>
+            
+            <form class="d-flex justify-content-left" action="{% url 'app:accomodation-request' %}" method="POST"> {% csrf_token %}
+              {% if room.is_available %}
+                <input type="number" placeholder="ROOM: {{room.id}}" aria-label="Search" class="form-control" style="width: 110px" disabled>
+                <input type="hidden" name="room_id" value="{{room.id}}">
+                <button class="btn btn-primary btn-md my-0 p" type="submit">Place A Request
+                  <i class="fas fa-shopping-cart ml-1"></i>
+                </button>
+              {% else %}
+                <p class="text-danger">Room Not Available</p>
+              {% endif %}
+              
+              {% if messages %}
+                <hr class="mb-1">
+                <br><br>
+                {% for message in messages %}
+                  {% if message.tags == 'success' %}
+                  <span class="lead btn btn-success btn-md my-0 p" type="button">{{message}}</span>
+                  {% else %}
+                  <span class="lead btn btn-danger btn-md my-0 p" type="button">{{message}}</span>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </form>
+
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+        <!--Grid column-->
+        <div class="col-md-12 text-center">
+          <h4 class="my-4 h4 text-danger">Important Information (RULES AND GUIDELINES)</h4>
+          <h5>RULE</h5>
+          <p class="text-danger h6">{{guidelines.rule}}</p>
+          <hr>
+          <h5>Guidelines</h5>
+          <hr>
+          <ol class="p">
+            <li>{{guidelines.guideline1}}</li>
+            <li>{{guidelines.guideline2}}</li>
+            <li>{{guidelines.guideline3}}</li>
+            <li>{{guidelines.guideline4}}</li>
+            <li>{{guidelines.guideline5}}</li>
+          </ol>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+  </main>
+  <!--Main layout-->
+{% endblock content %}

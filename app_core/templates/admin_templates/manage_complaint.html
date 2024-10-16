@@ -1,0 +1,53 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} ManageComplaint {% endblock %}
+
+{% block content %}
+
+<br><br><br><br> 
+<!--Main layout-->
+<main>
+    <div class="container">
+
+    {% include 'admin_templates/admin_nav.html' %}
+
+    <h2 class="my-5 h2 text-center">Manage Complaints</h2>
+        <div class="table">
+            <table class="table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Complaint ID</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Student Username</td>
+                        <td>Subject</td>
+                        <td>Message</td>
+                        <td>Action</td>
+                        <td>Date</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complain in complaints %}
+                    <tr>
+                        <td>{{complain.id}}</td>
+                        <td>{{complain.student.id}}</td>
+                        <td>{{complain.student.first_name}} - {{complain.student.last_name}}</td>
+                        <td>{{complain.student.user.username}}</td>
+                        <td>{{complain.subject}}</td>
+                        <td>{{complain.message}}</td>
+                        {% if complain.status %}
+                        <td><a href="{% url 'app:complain_status' complain.id %}" type="button" class="btn btn-danger">Not Treated</a></td>
+                        {% else %}
+                        <td><a href="{% url 'app:complain_status' complain.id %}" type="button" class="btn btn-success">Treated</a></td>
+                        {% endif %}
+                        <td>{{complain.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} CreateBlock  {% endblock %}
+
+
+{% block content %} 
+<br>
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+        <!-- Heading -->
+        <br><br>
+        <h2 class="my-5 h2 text-center text-primary">Create Block</h2>
+
+        <!--Grid row-->
+        <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-11 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+            <!--Card content-->
+            <form class="card-body" action="{% url 'app:create-block' %}" method="POST"> {% csrf_token %}
+                <!--email-->
+                <div class="md-form mb-5">
+                    <input type="text" id="block_name" class="form-control" name="block_name">
+                    <label for="block_name" class="">Block Name</label>
+                </div>
+
+                
+                <!--address-->
+                <div class="md-form mb-5">
+                    <select id="room_option" class="form-control" name="house_manager">
+                        <option>Choose Manager</option>
+                        {% for manager in house_managers %}
+                            <option value="{{manager.id}}"> {{manager.full_name}} | Email {{manager.email}} | Address {{manager.address}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create Block</button>
+                {% if messages %}
+                    <hr class="mb-1">
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <span class="btn btn-success btn-lg btn-block" type="button">{{message}}</span>
+                    {% else %}
+                    <span class="btn btn-danger btn-lg btn-block" type="button">{{message}}</span>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </form>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

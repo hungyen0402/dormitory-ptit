@@ -1,0 +1,61 @@
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light scrolling-navbar bg-custom">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="{% url 'admin-welcome-page' %}">
+        <strong class="text-primary">AMS</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'admin-welcome-page' %}"><b>Dashboard</b></a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'app:create-block' %}"><b>Create Block</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'app:create-manager' %}"><b>Create Manager</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'app:create-room' %}"><b>Create Room</b></a>
+          </li>
+          {% endif %}
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'logout-user' %}" class="nav-link border border-light rounded waves-effect">
+              <b class="text-danger mr-2">Logout</b>[<i class="fas fa-user mr-2"> {{ request.user.username}}] </i>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'login-page' %}"><b>Login</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'register-user' %}"><b>Register</b></a>
+          </li>
+          {% endif %}
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+  

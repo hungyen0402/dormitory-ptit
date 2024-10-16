@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+
+{% block title %} StudentHome {% endblock title %}
+
+{% block content %}
+
+{% if is_student %}
+
+<!--Carousel Wrapper-->
+<div id="carousel-example-1z" class="carousel slide carousel-fade pt-4" data-ride="carousel">
+
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+        <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+
+    <!--First slide-->
+    <div class="carousel-item active">
+        <div class="view" style="background-image: url('../../../media/photos/room1.png'); background-repeat: no-repeat; background-size: cover;">
+
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+                <h1 class="mb-4">
+                    <strong>@ Hostel Share</strong>
+                </h1>
+
+                <p>
+                    <strong>Best & free Free accomodations for student </strong>
+                </p>
+
+                <p class="mb-4 d-none d-md-block">
+                    <strong>All hostels recommended are clean and conducive for students.</strong>
+                </p>
+            </div>
+            <!-- Content -->
+
+        </div>
+        <!-- Mask & flexbox options-->
+
+        </div>
+    </div>
+    <!--/First slide-->
+
+    <!--Second slide-->
+    <div class="carousel-item">
+        <div class="view" style="background-image: url('../../../media/photos/room2.png'); background-repeat: no-repeat; background-size: cover;">
+
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+                <h1 class="mb-4">
+                    <strong>Hostel Management</strong>
+                </h1>
+
+                <p class="mb-4 d-none d-md-block">
+                    <strong>Modern rooms and many facilities</strong>
+                </p>
+            </div>
+            <!-- Content -->
+
+        </div>
+        <!-- Mask & flexbox options-->
+
+        </div>
+    </div>
+    <!--/Second slide-->
+
+    <!--Third slide-->
+    <div class="carousel-item">
+        <div class="view" style="background-image: url('../../../media/photos/room3.png'); background-repeat: no-repeat; background-size: cover;">
+
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+            <h1 class="mb-4">
+                <strong>Hostel For All</strong>
+            </h1>
+
+            <p>
+                <strong>Dependable and Reliable Rooms For Students</strong>
+            </p>
+
+            </div>
+            <!-- Content -->
+
+        </div>
+        <!-- Mask & flexbox options-->
+
+        </div>
+    </div>
+    <!--/Third slide-->
+
+    </div>
+    <!--/.Slides-->
+
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+
+</div>
+<!--/.Carousel Wrapper-->
+
+<!--Main layout-->
+<main>
+    <div class="container">
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Facilities:</span>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="">Recommended Rooms</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:room-transfer' %}">Room Transfer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:guest-stay' %}">Guest Stay</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:complaints' %}">LiveChat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:payment' %}">Deposit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:request-dashboard' %}">RequestsDashboard</a>
+            </li>
+        </ul>
+        <!-- Links -->
+
+        <form class="form-inline">
+            <div class="md-form my-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Wallet Balance: ${{student_user.wallet}}" aria-label="Search" disabled>
+            </div>
+        </form>
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Section: Products v.3-->
+    <section class="text-center mb-4">
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+        {% for room in rooms %}
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+            <!--Card image-->
+            <div class="view overlay">
+                <img src="{{room.image1.url}}" class="card-img-top" alt="" style="height:200px;">
+                <a href="{% url 'app:room-details' room.id %}">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+                <!--Category & Title-->
+                <a href="{% url 'app:room-details' room.id %}" class="grey-text">
+                <h5>{{room.room_name}}</h5>
+                </a>
+                <h5>
+                <strong>
+                    <a href="{% url 'app:room-details' room.id %}" class="dark-grey-text">Block {{room.block.block_name}}
+                    <span class="badge badge-pill danger-color">{{room.room_tag}}</span>
+                    </a>
+                </strong>
+                </h5>
+
+                <h4 class="font-weight-bold blue-text">
+                    <strong>₦{{room.charge}}</strong>
+                </h4>
+            </div>
+            <!--Card content-->
+
+            </div>
+            <!--Card-->
+        </div>
+        <!--Grid column-->
+
+        {% endfor %}
+        </div>
+        <!--Grid row-->
+
+    </section>
+    <!--Section: Products v.3-->
+
+
+
+    </div>
+</main>
+<!--Main layout-->
+
+{% else %}
+<br><br><br><br><br><br><br><br><br><br>
+<div class="container card mb-5">
+    <div class="mt-5">
+        <h3 class="text-danger">You are not authorized to view this page until you register as a student of the school.</h3>
+        <a href="{% url 'app:student-register'%}">Register Here</a>
+    </div>
+</div>
+
+{% endif %}
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}
