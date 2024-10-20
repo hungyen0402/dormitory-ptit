@@ -10,7 +10,7 @@ def student_register(request):
         last_name = request.POST.get("last_name")
         email = request.POST.get("email")
         address = request.POST.get("address")
-        matric = request.POST.get("matric_no")
+        matric = request.POST.get("matric_no") 
         student = Student_Account(user = request.user, first_name = first_name, last_name = last_name, email = email, address = address, matric = matric, is_student = True)
         student.save()
         return redirect("app:student-dashboard")

@@ -46,7 +46,7 @@ def create_room(request):
         room_description = request.POST.get("room_description")
         room_charge = request.POST.get("room_charge")
         room_condition = request.POST.get("room_condition")
-        block_name = request.POST.get("block_name")
+        block_name = request.POST.get("block_name") 
         block_obj = Block.objects.filter(id = block_name).first()
         image1 = request.FILES["image1"]
         image2 = request.FILES["image2"]

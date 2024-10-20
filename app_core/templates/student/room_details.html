@@ -59,6 +59,14 @@
             <p class="lead font-weight-bold">Room Condition</p>
 
             <p>{{room.condition}}</p>
+
+            <p class="lead font-weight-bold">Tổng số giường</p>
+
+            <p>{{room.sum_people}}</p>
+
+            <p class="lead font-weight-bold">Số người hiện tại</p>
+
+            <p>{{room.cur_people}}</p>
             
             <form class="d-flex justify-content-left" action="{% url 'app:accomodation-request' %}" method="POST"> {% csrf_token %}
               {% if room.is_available %}
