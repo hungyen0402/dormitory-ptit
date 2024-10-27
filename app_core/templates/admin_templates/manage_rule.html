@@ -1,0 +1,84 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} CreateRule  {% endblock %}
+
+
+{% block content %} 
+<br>
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+        <!-- Heading -->
+        <br><br>
+        <h2 class="my-5 h2 text-center">Create Rule and Guidelines</h2>
+
+        <!--Grid row-->
+        <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-11 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+            <!--Card content-->
+            <form class="card-body" action="{% url 'app:manage-rule' %}" method="POST"> {% csrf_token %}
+                
+                <!--address-->
+                <div class="md-form mb-5">
+                    <textarea id="rule" class="form-control" name="rule"> </textarea>
+                    <label for="rule" class="">Rule</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="text" id="guideline1" class="form-control" name="guideline1">
+                    <label for="guideline1" class="">GuideLine 1</label>
+                </div>
+
+                 <div class="md-form mb-5">
+                    <input type="text" id="guideline2" class="form-control" name="guideline2">
+                    <label for="guideline2" class="">GuideLine 2</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="text" id="guideline3" class="form-control" name="guideline3">
+                    <label for="guideline3" class="">GuideLine 3</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="text" id="guideline4" class="form-control" name="guideline4">
+                    <label for="guideline4" class="">GuideLine 4</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="text" id="guideline5" class="form-control" name="guideline5">
+                    <label for="guideline5" class="">GuideLine 5</label>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create Rules and Guidelines</button>
+                {% if messages %}
+                    <hr class="mb-1">
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <span class="btn btn-success btn-lg btn-block" type="button">{{message}}</span>
+                    {% else %}
+                    <span class="btn btn-danger btn-lg btn-block" type="button">{{message}}</span>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </form>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+<br><br><br><br><br>
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %} RoomRequest {% endblock %}
+
+{% block content %}
+
+<br><br>
+<!--Main layout-->
+<main>
+    <div class="container">
+        <h2 class="my-5 h2 text-center blue-text">Room Request Applications</h2>
+        <div class="table-responsive">
+            <table class="table table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Request ID</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Student Username</td>
+                        <td>Room ID</td>
+                        <td>Room Name</td>
+                        <td>Room Block</td>
+                        <td>Room Price</td>
+                        <td>House Manger</td>
+                        <td>Status</td>
+                        <td>Date Created</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for accomdation in accomodations %}
+                    <tr>
+                        <td>{{accomdation.id}}</td>
+                        <td>{{accomdation.student.id}}</td>
+                        <td>{{accomdation.student.first_name}} - {{accomdation.student.last_name}}</td>
+                        <td>{{accomdation.student.user.username}}</td>
+                        <td>{{accomdation.room.id}}</td>
+                        <td>{{accomdation.room.room_name}}</td>
+                        <td>{{accomdation.room.block.block_name}}</td>
+                        <td>{{accomdation.room.charge}}</td>
+                        <td>{{accomdation.room.block.house_manager.full_name}}</td>
+                        {% if accomdation.approved %}
+                        <td class="text-success">Approved</td>
+                        {% else %}
+                        <td class="text-warning">Pending</td>
+                        {% endif %}
+                        <td>{{accomdation.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="my-5 h2 text-center blue-text">Room Transfer Request Applications</h2>
+        <div class="table-responsive">
+            <table class="table table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Transfer ID</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Student Username</td>
+                        <td>Room ID</td>
+                        <td>Room Name</td>
+                        <td>Room Block</td>
+                        <td>Room Price</td>
+                        <td>House Manager</td>
+                        <td>Status</td>
+                        <td>Date Created</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for accomdation in room_transfers %}
+                    <tr>
+                        <td>{{accomdation.id}}</td>
+                        <td>{{accomdation.student.id}}</td>
+                        <td>{{accomdation.student.first_name}} - {{accomdation.student.last_name}}</td>
+                        <td>{{accomdation.student.user.username}}</td>
+                        <td>{{accomdation.room.id}}</td>
+                        <td>{{accomdation.room.room_name}}</td>
+                        <td>{{accomdation.room.block.block_name}}</td>
+                        <td>{{accomdation.room.charge}}</td>
+                        <td>{{accomdation.room.block.house_manager.full_name}}</td>
+                        {% if accomdation.approved %}
+                        <td class="text-success">Approved</td>
+                        {% else %}
+                        <td class="text-warning">Pending</td>
+                        {% endif %}
+                        <td>{{accomdation.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="my-5 h2 text-center blue-text">Guest Stay Applications</h2>
+        <div class="table-responsive">
+            <table class="table table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Guest ID</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Student Username</td>
+                        <td>Guest Name</td>
+                        <td>Date From</td>
+                        <td>Date To</td>
+                        <td>Status</td>
+                        <td>Date Created</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for accomdation in guests %}
+                    <tr>
+                        <td>{{accomdation.id}}</td>
+                        <td>{{accomdation.student.id}}</td>
+                        <td>{{accomdation.student.first_name}} - {{accomdation.student.last_name}}</td>
+                        <td>{{accomdation.student.user.username}}</td>
+                        <td>{{accomdation.full_name}}</td>
+                        <td>{{accomdation.date_from}}</td>
+                        <td>{{accomdation.date_to}}</td>
+                        {% if accomdation.status %}
+                        <td class="text-success">Approved</td>
+                        {% else %}
+                        <td class="text-warning">Pending</td>
+                        {% endif %}
+                        <td>{{accomdation.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="my-5 h2 text-center blue-text">Complaints</h2>
+        <div class="table-responsive">
+            <table class="table table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Complaint ID</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Student Username</td>
+                        <td>Subject</td>
+                        <td>Status</td>
+                        <td>Date Created</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complain in complaints %}
+                    <tr>
+                        <td>{{complain.id}}</td>
+                        <td>{{complain.student.id}}</td>
+                        <td>{{complain.student.first_name}} - {{complain.student.last_name}}</td>
+                        <td>{{complain.student.user.username}}</td>
+                        <td>{{complain.subject}}</td>
+                        {% if complain.status %}
+                        <td class="text-success">Treated</td>
+                        {% else %}
+                        <td class="text-warning">Pending</td>
+                        {% endif %}
+                        <td>{{complain.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<br><br><br><br><br><br>
+{% endblock %}

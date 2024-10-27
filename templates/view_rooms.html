@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %} Rooms {% endblock title %}
+
+{% block content %}
+<br><br><br><br>
+
+<!--Main layout-->
+<main>
+    <div class="container">
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Facilities:</span>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="">All Rooms</a>
+            </li>
+        </ul>
+        <!-- Links -->
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Section: Products v.3-->
+    <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+        {% for room in rooms %}
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+            <!--Card image-->
+            <div class="view overlay">
+                <img src="{{room.image1.url}}" class="card-img-top" alt="" style="height:200px;">
+                <a>
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+                <!--Category & Title-->
+                <a href="" class="grey-text">
+                <h5>{{room.room_name}}</h5>
+                </a>
+                <h5>
+                <strong>
+                    <a href="" class="dark-grey-text">Block {{room.block.block_name}}
+                    <span class="badge badge-pill danger-color">{{room.room_tag}}</span>
+                    </a>
+                </strong>
+                </h5>
+
+                <h4 class="font-weight-bold blue-text">
+                    <strong>₦{{room.charge}}</strong>
+                </h4>
+            </div>
+            <!--Card content-->
+
+            </div>
+            <!--Card-->
+
+        </div>
+        <!--Grid column-->
+
+        {% endfor %}
+        </div>
+        <!--Grid row-->
+
+    </section>
+    <!--Section: Products v.3-->
+
+    </div>
+</main>
+<!--Main layout-->
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} ManageGuest {% endblock %}
+
+{% block content %}
+
+<br><br><br><br> 
+<!--Main layout-->
+<main>
+    <div class="container">
+    {% include 'admin_templates/admin_nav.html' %}
+    <h2 class="my-5 h2 text-center">Manage Guest Requests</h2>
+        <div class="table">
+            <table class="table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Guest ID</td>
+                        <td>Guest Fullname</td>
+                        <td>Guest Address</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Reason</td>
+                        <td>Date From</td>
+                        <td>Date To</td>
+                        <td>Action</td>
+                        <td>Date Created</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for guest in guests %}
+                    <tr>
+                        <td>{{guest.id}}</td>
+                        <td>{{guest.full_name}}</td>
+                        <td>{{guest.address}}</td>
+                        <td>{{guest.student.id}}</td>
+                        <td>{{guest.student.first_name}} - {{guest.student.last_name}}</td>
+                        <td>{{guest.reason}}</td>
+                        <td>{{guest.date_from}}</td>
+                        <td>{{guest.date_to}}</td>
+                        {% if guest.status %}
+                        <td><a href="{% url 'app:guest_status' guest.id %}" type="button" class="btn btn-danger">Disapprove</a></td>
+                        {% else %}
+                        <td><a href="{% url 'app:guest_status' guest.id %}" type="button" class="btn btn-success">Approve</a></td>
+                        {% endif %}
+                        <td>{{guest.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

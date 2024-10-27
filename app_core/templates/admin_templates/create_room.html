@@ -1,0 +1,105 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} CreateRoom  {% endblock %}
+
+{% block content %} 
+<!--Main layout-->
+<main class="mt-4 pt-4">
+    <div class="container wow fadeIn">
+
+        <!-- Heading -->
+        <br><br>
+        <h2 class="my-5 h2 text-center text-primary">Create Room</h2>
+
+        <!--Grid row-->
+        <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-11 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+            <!--Card content-->
+            <form class="card-body" action="{% url 'app:create-room' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+                <!--ame-->
+                <div class="md-form mb-5">
+                    <input type="text" id="room_name" class="form-control" name="room_name">
+                    <label for="room_name" class="">Room Name</label>
+                </div>
+
+                <!--tag-->
+                <div class="md-form mb-5">
+                    <input type="text" id="room_tag" class="form-control" name="room_tag">
+                    <label for="room_tag" class="">Room Tag</label>
+                </div>
+
+                <!--description-->
+                <div class="md-form mb-5">
+                    <input type="text" id="room_description" class="form-control" name="room_description">
+                    <label for="room_description" class="">Room Description</label>
+                </div>
+
+                <!--charge-->
+                <div class="md-form mb-5">
+                    <input type="text" id="room_charge" class="form-control" name="room_charge">
+                    <label for="room_charge" class="">Room Charge</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="text" id="room_condition" class="form-control" name="room_condition">
+                    <label for="room_condition" class="">Room Condition</label>
+                </div>
+
+                <!--block-->
+                <div class="md-form mb-5">
+                    <select id="room_option" class="form-control" name="block_name">
+                        <option>Choose Block</option>
+                        {% for block in blocks %}
+                            <option value="{{block.id}}">Block {{block.block_name}} | Manager {{block.hostel_manager.full_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="file" id="image1" class="form-control" name="image1">
+                    <!-- <label for="image1" class="">Image One</label> -->
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="file" id="image2" class="form-control" name="image2">
+                    <!-- <label for="image2" class="">Image Two</label> -->
+                </div>
+
+                <div class="md-form mb-5">
+                    <input type="file" id="image3" class="form-control" name="image3">
+                    <!-- <label for="image3" class="">Image Three</label> -->
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create Room</button>
+                {% if messages %}
+                    <hr class="mb-1">
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <span class="btn btn-success btn-lg btn-block" type="button">{{message}}</span>
+                    {% else %}
+                    <span class="btn btn-danger btn-lg btn-block" type="button">{{message}}</span>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </form>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+{% endblock %}

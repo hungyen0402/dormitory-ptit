@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %} Register {% endblock %}
+{% block content %}
+<br><br><br><br>
+<!--Main layout-->
+<main class="mt-5 pt-4 d-flex justify-content-center align-items-center" style="min-height: 100vh; background-image: url('../static/img/image-b4.png'); background-repeat: no-repeat; background-size: cover;">
+  <div class="container wow fadeIn">
+    <!-- Heading -->
+    <h1 class="text-primary text-center h2">ACCOMODATION MANAGEMENT SYSTEM</h1>
+    <hr>
+    <h2 class="my-5 h2 text-center blue-text">Sign-up Form</h2>
+    <!--Grid row-->
+    <div class="row justify-content-center">
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <!--Card-->
+        <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.8);">
+          <!--Card content-->
+          <form class="card-body" action="{% url 'register-user' %}" method="POST" onsubmit="return validatePassword()"> {% csrf_token %}
+            <!--Grid row-->
+            <div class="row">
+              <!--Grid column-->
+              <div class="col-md-12 mb-2">
+                <!--Username-->
+                <div class="md-form ">
+                  <input type="text" id="username" class="form-control" name="username" required onkeyup="checkUsername()">
+                  <label for="username" class="">Username</label>
+                  <span id="username-result"></span>
+                </div>
+              </div>
+              <!--Grid column-->
+              <!--Grid column-->
+              <div class="col-md-12 mb-2">
+                <!--Password-->
+                <div class="md-form">
+                  <input type="password" id="password" class="form-control" name="password" required>
+                  <label for="password" class="">Password</label>
+                  <span id="password-error" style="color: red;"></span>
+                </div>
+              </div>
+              <!--Grid column-->
+            </div>
+            <!--Grid row-->
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Me Up</button>
+          </form>
+        </div>
+        <!--/.Card-->
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+</main>
+<!--Main layout-->
+<br><br><br><br><br><br><br><br><br><br>
+
+<!--JavaScript to check username-->
+<script type="text/javascript">
+  function checkUsername() {
+    var username = document.getElementById('username').value;
+    fetch('/ajax/check-username/?username=' + username)
+    .then(response => response.json())
+    .then(data => {
+      if (data.is_taken) {
+        document.getElementById('username-result').innerHTML = '<span style="color: red;">Username is already taken</span>';
+      } else {
+        document.getElementById('username-result').innerHTML = '<span style="color: green;">Username is available</span>';
+      }
+    });
+  }
+
+  function validatePassword() {
+    var password = document.getElementById('password').value;
+    if (password.length < 8) {
+      document.getElementById('password-error').innerText = 'Password must be at least 8 characters long';
+      return false;
+    }
+    document.getElementById('password-error').innerText = '';
+    return true;
+  }
+</script>
+{% endblock content %}

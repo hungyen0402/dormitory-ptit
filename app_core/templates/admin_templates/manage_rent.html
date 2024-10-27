@@ -1,0 +1,79 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} CreateRents  {% endblock %}
+
+
+{% block content %} 
+<br>
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+        <!-- Heading -->
+        <br><br>
+        <h2 class="my-5 h2 text-center">Create Rents</h2>
+
+        <!--Grid row-->
+        <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-11 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+            <!--Card content-->
+            <form class="card-body" action="{% url 'app:manage-rule' %}" method="POST"> {% csrf_token %}
+                
+                <!--address-->
+                <div class="md-form mb-5">
+                    <textarea id="room" class="form-control" name="room"> </textarea>
+                    <label for="room" class="">Room</label>
+                </div>
+                <!--Rent-->
+                <div class="md-form mb-5">
+                    <input type="number" id="rent" class="form-control" name="rent" required>
+                    <label for="rent" class="">Rent</label>
+                </div>
+                <!--Electricity Bill-->
+                <div class="md-form mb-5">
+                    <input type="number" id="electricbill" class="form-control" name="electricbill" required>
+                    <label for="electricbill" class="">Electricity Bill</label>
+                </div>
+                <!--Water Bill-->
+                <div class="md-form mb-5">
+                    <input type="number" id="waterbill" class="form-control" name="waterbill" required>
+                    <label for="waterbill" class="">Water Bill</label>
+                </div>
+                <!--Service Charges-->
+                <div class="md-form mb-5">
+                    <input type="number" id="service" class="form-control" name="service" required>
+                    <label for="service" class="">Service Charges</label>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create Rules and Guidelines</button>
+                {% if messages %}
+                    <hr class="mb-1">
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <span class="btn btn-success btn-lg btn-block" type="button">{{message}}</span>
+                    {% else %}
+                    <span class="btn btn-danger btn-lg btn-block" type="button">{{message}}</span>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </form>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+<br><br><br><br><br>
+{% endblock %}

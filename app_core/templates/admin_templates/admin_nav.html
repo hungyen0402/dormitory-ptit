@@ -1,0 +1,39 @@
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Management:</span>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'admin-welcome-page' %}">ManageRequests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:manage-transfer' %}">ManageTransfers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:manage-guest' %}">ManageGuests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:manage-complaints' %}">ManageComplaints</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app:manage-rule' %}">ManageRules</a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->

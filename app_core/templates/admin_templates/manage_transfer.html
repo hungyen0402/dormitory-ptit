@@ -1,0 +1,55 @@
+{% extends 'admin_templates/base.html' %}
+
+{% block title %} ManageRoom {% endblock %}
+
+{% block content %}
+
+<br><br><br><br> 
+<!--Main layout-->
+<main>
+    <div class="container">
+    {% include 'admin_templates/admin_nav.html' %}
+    <h2 class="my-5 h2 text-center">Manage Room Transfer Requests</h2>
+        <div class="table">
+            <table class="table-stripped table-hovered table-bordered">
+                <thead>
+                    <tr>
+                        <td>Transfer ID</td>
+                        <td>Student ID</td>
+                        <td>Student Name</td>
+                        <td>Student Username</td>
+                        <td>Room ID</td>
+                        <td>Room Name</td>
+                        <td>Room Block</td>
+                        <td>Reason For Transfer</td>
+                        <td>Action</td>
+                        <td>Date Created</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transfer in transfers %}
+                    <tr>
+                        <td>{{transfer.id}}</td>
+                        <td>{{transfer.student.id}}</td>
+                        <td>{{transfer.student.first_name}} - {{transfer.student.last_name}}</td>
+                        <td>{{transfer.student.user.username}}</td>
+                        <td>{{transfer.room.id}}</td>
+                        <td>{{transfer.room.room_name}}</td>
+                        <td>{{transfer.room.block.block_name}}</td>
+                        <td>{{transfer.reason}}</td>
+                        {% if transfer.approved %}
+                        <td><a href="{% url 'app:transfer_status' transfer.id %}" type="button" class="btn btn-danger">Disapprove</a></td>
+                        {% else %}
+                        <td><a href="{% url 'app:transfer_status' transfer.id %}" type="button" class="btn btn-success">Approve</a></td>
+                        {% endif %}
+                        <td>{{transfer.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
