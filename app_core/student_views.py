@@ -41,8 +41,10 @@ def payment(request):
         student = Student_Account.objects.get(user = request.user)
         deposit = Deposit(student = student, full_name = full_name, card_number = card_number, bank = bank, date_submit = date_submit, amount = amount)
         deposit.save()
-        student.wallet += int(amount)
-        student.save()
+        if deposit.confirm:
+            student.wallet += int(amount)
+            student.save()
+
         messages.success(request, "Success!")
         return redirect(request.META.get("HTTP_REFERER"))
 

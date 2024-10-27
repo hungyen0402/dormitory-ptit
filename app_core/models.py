@@ -30,6 +30,14 @@ class Deposit(models.Model):
     created_at = models.DateTimeField(auto_now = True)
     updated_at = models.DateTimeField(auto_now_add = True)
 
+    def save(self, *args, **kwargs):
+        if self.pk:  # Kiểm tra nếu khoản tiền gửi đã tồn tại
+            old_deposit = Deposit.objects.get(pk=self.pk)
+            if old_deposit.confirm is False and self.confirm is True:  # Xác nhận lần đầu
+                self.student.wallet += self.amount
+                self.student.save()
+        super().save(*args, **kwargs)  # Gọi phương thức save "thật"
+
     def __str__(self):
         return self.student.user.username
 
