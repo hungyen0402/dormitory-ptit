@@ -63,8 +63,7 @@ class Rooms(models.Model):
     description = models.TextField()
     condition = models.TextField()
     charge = models.IntegerField()
-    cur_people = models.IntegerField(default=0)
-    sum_people = models.IntegerField(default=10)
+    slot_available = models.IntegerField(default=10) # tối đa 10 giường 
     is_available = models.BooleanField(default=True)
     image1 = models.ImageField(upload_to="photos")
     image2 = models.ImageField(upload_to="photos")
@@ -131,26 +130,26 @@ class RoomTransfer(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-    def save(self, *args, **kwargs):
-        # Lấy thông tin phòng hiện tại của sinh viên trước khi cập nhật
-        accommodation_request = Accomodation_Request.objects.get(student=self.student)
-        current_room = accommodation_request.room
+    # def save(self, *args, **kwargs):
+    #     # Lấy thông tin phòng hiện tại của sinh viên trước khi cập nhật
+    #     accommodation_request = Accomodation_Request.objects.get(student=self.student)
+    #     current_room = accommodation_request.room
 
-        # Nếu việc chuyển phòng đã được duyệt và phòng mới khác phòng hiện tại
-        if self.approved and current_room != self.room:
-            # Giảm số người ở phòng cũ
-            current_room.cur_people = max(current_room.cur_people - 1, 0)
-            current_room.save()
+        # # Nếu việc chuyển phòng đã được duyệt và phòng mới khác phòng hiện tại
+        # if self.approved and current_room != self.room:
+        #     # Giảm số người ở phòng cũ
+        #     current_room.cur_people = max(current_room.cur_people - 1, 0)
+        #     current_room.save()
 
-            # Tăng số người ở phòng mới
-            self.room.cur_people = min(self.room.cur_people + 1, self.room.sum_people)
-            self.room.save()
+        #     # Tăng số người ở phòng mới
+        #     self.room.cur_people = min(self.room.cur_people + 1, self.room.sum_people)
+        #     self.room.save()
 
-            # Cập nhật phòng mới cho student trong Accomodation_Request
-            accommodation_request.room = self.room
-            accommodation_request.save()
+        #     # Cập nhật phòng mới cho student trong Accomodation_Request
+        #     accommodation_request.room = self.room
+        #     accommodation_request.save()
 
-        super(RoomTransfer, self).save(*args, **kwargs)
+        # super(RoomTransfer, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.student.first_name} - {self.room.room_name}"

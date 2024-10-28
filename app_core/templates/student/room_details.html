@@ -60,24 +60,30 @@
 
             <p>{{room.condition}}</p>
 
-            <p class="lead font-weight-bold">Tổng số giường</p>
+            <!-- <p class="lead font-weight-bold">Tổng số giường</p>
 
             <p>{{room.sum_people}}</p>
 
             <p class="lead font-weight-bold">Số người hiện tại</p>
 
-            <p>{{room.cur_people}}</p>
+            <p>{{room.cur_people}}</p> -->
+            <p class="lead font-weight-bold">Available bed</p>
+            <p>{{room.slot_available}}</p>
             
-            <form class="d-flex justify-content-left" action="{% url 'app:accomodation-request' %}" method="POST"> {% csrf_token %}
-              {% if room.is_available %}
-                <input type="number" placeholder="ROOM: {{room.id}}" aria-label="Search" class="form-control" style="width: 110px" disabled>
-                <input type="hidden" name="room_id" value="{{room.id}}">
-                <button class="btn btn-primary btn-md my-0 p" type="submit">Place A Request
-                  <i class="fas fa-shopping-cart ml-1"></i>
-                </button>
+            <form class="d-flex justify-content-left" action="{% url 'app:accomodation-request' %}" method="POST">
+              {% csrf_token %}
+              {% if room.slot_available != 0 %}
+                  <input type="number" placeholder="ROOM: Available ✓" aria-label="Search" class="form-control" style="width: 200px" disabled>
+                  <input type="hidden" name="room_id" value="{{room.id}}"> <!--gửi trạng thái về server--> 
+                  <button class="btn btn-primary btn-md my-0 p" type="submit">
+                      Place A Request
+                      <i class="fas fa-shopping-cart ml-1"></i>
+                  </button>
               {% else %}
-                <p class="text-danger">Room Not Available</p>
+                  <input type="text" placeholder="ROOM: Unavailable ✗" aria-label="Search" class="form-control text-danger" style="width: 150px" disabled>
+                  <p class="text-danger ml-2">Room Not Available</p>
               {% endif %}
+          
               
               {% if messages %}
                 <hr class="mb-1">

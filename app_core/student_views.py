@@ -67,12 +67,16 @@ def accomodation_request(request):
             if Accomodation_Request.objects.filter(student = student).first():
                 messages.error(request, "You already have a room allocated to you!")
                 return redirect(request.META.get("HTTP_REFERER"))
+            elif room_obj.slot_available == 0:
+                messages.error(request, "Full of beds")
+                return redirect(request.META.get("HTTP_REFERER"))
             else:
                 accomodation_obj = Accomodation_Request(student = student, room = room_obj)
                 accomodation_obj.save()
-                student.wallet -= room_obj.charge
+                student.wallet -= room_obj.charge # chỉ cần chưa đăng ký phòng nào thì sẽ được duyệt ngay, tiền bị trừ
                 student.save()
-                room_obj.is_available = False
+                # room_obj.is_available = False
+                room_obj.slot_available -= 1 
                 room_obj.save()
 
                 messages.success(request, "Successfully Applied For This Room. Please continue to check your dashboard for your request confirmation!")
@@ -100,15 +104,20 @@ def room_transfer(request):
             return redirect(request.META.get("HTTP_REFERER"))
         
         room_obj = Rooms.objects.filter(id=room).first()
+        accommodation_request = Accomodation_Request.objects.get(student=student_user)
+        room_cur = accommodation_request.room
         if student_user.wallet >= room_obj.charge:
             student_user.wallet -= room_obj.charge
             student_user.save()
-
+            room_cur.slot_available += 1
+            room_cur.save()
             room_transfer_obj = RoomTransfer(reason = reason, student = student_user, room = room_obj)
             room_transfer_obj.save()
 
             room_obj.is_available = False
+            room_obj.slot_available -= 1 
             room_obj.save()
+
             messages.success(request, "Successfully requested for room transfer. Please continue to check your dashboard for your request confirmation!")
             return redirect(request.META.get("HTTP_REFERER"))
         else:
