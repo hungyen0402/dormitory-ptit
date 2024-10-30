@@ -18,10 +18,7 @@ urlpatterns = [
     path("register", register_page, name="register-user"),
     path("rooms", view_rooms, name="view-rooms"),
     path("app/", include("app_core.urls", namespace="app")),
-<<<<<<< HEAD
-=======
     path('ajax/check-username/', check_username, name='check_username'),
->>>>>>> 63aa1846705c4820b6c7138338646fed33c9eb31
 
 ]
 
