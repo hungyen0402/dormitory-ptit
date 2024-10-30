@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} RoomRequest {% endblock %}
+
+{% block content %}
+
+<br><br>
+<!--Main layout-->
+<main>
+    <div class="container">
+        <h2 class="my-5 h2 text-center blue-text">Thông Tin Tiền Phòng</h2>
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Tên Phòng</th>
+                        <th scope="col">Giá Thuê Hàng Tháng</th>
+                        <th scope="col">Tiền điện</th>
+                        <th scope="col">Tiền nước</th>
+                        <th scope="col">Phí dịch vụ chung</th>
+                        <th scope="col">Tổng tiền phải trả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rent in rents %}
+                    <tr>
+                        <td>{{ rent.room }}</td>
+                        <td>{{ rent.rent }}</td>
+                        <td>{{ rent.electricitybill }}</td>
+                        <td>{{ rent.waterbill }}</td>
+                        <td>{{ rent.service }}</td>
+                        <td>{{ rent.total_bill}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>   
+        </div>
+
+    </div>
+</main>
+
+<br><br><br><br><br><br>
+{% endblock %}

@@ -2,6 +2,10 @@ from django.shortcuts import *
 from .models import *
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+<<<<<<< HEAD
+=======
+from .models import Rent
+>>>>>>> 63aa1846705c4820b6c7138338646fed33c9eb31
 
 
 def admin_home(request):
@@ -46,7 +50,7 @@ def create_room(request):
         room_description = request.POST.get("room_description")
         room_charge = request.POST.get("room_charge")
         room_condition = request.POST.get("room_condition")
-        block_name = request.POST.get("block_name") 
+        block_name = request.POST.get("block_name")
         block_obj = Block.objects.filter(id = block_name).first()
         image1 = request.FILES["image1"]
         image2 = request.FILES["image2"]
@@ -107,6 +111,19 @@ def manage_rule(request):
     context = {}
     return render(request, "admin_templates/manage_rule.html", context)
 
+def manage_rent(request):
+    if request.method == "POST":
+        room=request.POST.get("room")
+        rent = request.POST.get("rent")
+        electricbill = request.POST.get("electricbill")
+        waterbill = request.POST.get("waterbill")
+        service = request.POST.get("service")
+        rents = Rent(room=room,rent=rent, electricity_bill=electricbill, water_bill=waterbill, service=service)
+        rents.save()
+        messages.success(request, "Success")
+        return redirect(request.META.get("HTTP_REFERER"))
+    context = {}
+    return render(request, "admin_templates/manage_manage_rent.html", context)
 
 def approve_or_disapprove(request, ac_id):
     accomodation_req = Accomodation_Request.objects.filter(id = ac_id).first()
@@ -147,3 +164,6 @@ def transfer_status(request, transfer_id):
         transfer.approved = True
     transfer.save()
     return redirect(request.META.get("HTTP_REFERER"))
+
+
+

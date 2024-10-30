@@ -10,7 +10,7 @@ def student_register(request):
         last_name = request.POST.get("last_name")
         email = request.POST.get("email")
         address = request.POST.get("address")
-        matric = request.POST.get("matric_no") 
+        matric = request.POST.get("matric_no")
         student = Student_Account(user = request.user, first_name = first_name, last_name = last_name, email = email, address = address, matric = matric, is_student = True)
         student.save()
         return redirect("app:student-dashboard")
@@ -41,8 +41,10 @@ def payment(request):
         student = Student_Account.objects.get(user = request.user)
         deposit = Deposit(student = student, full_name = full_name, card_number = card_number, bank = bank, date_submit = date_submit, amount = amount)
         deposit.save()
-        student.wallet += int(amount)
-        student.save()
+        if deposit.confirm:
+            student.wallet += int(amount)
+            student.save()
+
         messages.success(request, "Success!")
         return redirect(request.META.get("HTTP_REFERER"))
 
@@ -184,5 +186,7 @@ def request_dashboard(request):
     context = {"room_transfers":room_transfers, "guests":guests, "complaints":complaints, "accomodations":accomodations}
     return render(request, "student/request_dashboard.html", context)
 
-
+def view_rents(request):
+    rents = Rent.objects.all()
+    return render(request, 'student/view_rents.html', {'rents': rents})
 

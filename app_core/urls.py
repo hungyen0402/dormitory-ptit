@@ -10,7 +10,7 @@ app_name = "app"
 urlpatterns = [
 
     # Students Urls
-
+    
     path("student_dashboard", student_dashboard, name = "student-dashboard"),
     path("student_register", student_register, name = "student-register"),
     path("room_details/<str:room_id>", room_details, name = "room-details"),
@@ -19,7 +19,8 @@ urlpatterns = [
     path("room_transfer", room_transfer, name = "room-transfer"),
     path("guest_stay", guest_stay, name = "guest-stay"),
     path("complain", complaints, name = "complaints"),
-
+    path('rents', view_rents, name='view-rents'),
+    
     # Admin Urls
 
     path("create_block", create_block, name = "create-block"),
