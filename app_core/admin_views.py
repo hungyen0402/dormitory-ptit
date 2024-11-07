@@ -2,10 +2,7 @@ from django.shortcuts import *
 from .models import *
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
-<<<<<<< HEAD
-=======
 from .models import Rent
->>>>>>> 63aa1846705c4820b6c7138338646fed33c9eb31
 
 
 def admin_home(request):
